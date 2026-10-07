@@ -17,7 +17,11 @@ SPAWNS = [(200, 330), (600, 330), (100, 210), (700, 210), (150, 450), (650, 450)
 
 def bubble_tint(bubble):
     """Return an (r, g, b) colour for a bubble, or None for the default."""
-    pass
+    if bubble.enemy is None:
+        return None
+    # Trapped bubbles shift from pink to red as the enemy is about to escape.
+    urgency = 1 - max(0.0, bubble.life) / BUBBLE_LIFE
+    return (255, int(190 - 130 * urgency), int(230 - 170 * urgency))
 
 
 def on_fruit_collected(fruit):
